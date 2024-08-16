@@ -14,7 +14,7 @@ class MessageController {
             const projectMessages = messages.map((msg) => {
                 return {
                     fromSelf : msg.sender.toString() === from,
-                    message: msg.message.text,  // Sửa lỗi truy cập thuộc tính message
+                    message: msg.message.text, 
                 };
             });
             res.json(projectMessages);
@@ -29,7 +29,7 @@ class MessageController {
             const newMessage = new Message({
                 users: [from, to],
                 message: {
-                    text: message,  // Đảm bảo thuộc tính text được gán đúng
+                    text: message,  
                 },
                 sender: from,
             });

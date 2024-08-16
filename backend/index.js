@@ -37,8 +37,7 @@ app.use('/api/users', user);
 app.use('/api/messages', msg);
 
 // HTTP Server & Socket.io setup
-const server = http.createServer(app); 
-// Tạo HTTP server với Express app
+const server = http.createServer(app); //
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
@@ -49,13 +48,11 @@ const io = new Server(server, {
 global.onlineUsers = new Map();
 io.on('connection', (socket) => {
     console.log('User connected');
-    
-    // Lưu user vào global map
+
     socket.on("add-user", (userId) => {
         onlineUsers.set(userId, socket.id);
     });
 
-    // Xử lý khi nhận tin nhắn
     socket.on("send-msg", (data) => {
         const sendUserSocket = onlineUsers.get(data.to);
         if (sendUserSocket) {
@@ -63,15 +60,12 @@ io.on('connection', (socket) => {
         }
     });
 
-    // Xử lý khi user ngắt kết nối
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });
 });
 
-
-// Start server
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => { // Dùng HTTP server để lắng nghe thay vì app.listen
+server.listen(PORT, () => { 
     console.log('Server is running on port ', PORT);
 });

@@ -46,15 +46,10 @@ export default function ChatContainer({ currentChat, socket }) {
     if (socket.current) {
       const messageListener = (msg) => {
         setArrivalMessage({ fromSelf: false, message: msg });
-        // Kiểm tra nếu người nhận tin nhắn là cuộc trò chuyện hiện tại
-        // if (msg.from === currentChat._id || msg.to === currentChat._id) {
-        //   setArrivalMessage({ fromSelf: false, message: msg });
-        // }
       };
 
       socket.current.on("msg-recieve", messageListener);
 
-      // Cleanup listener khi component unmount
       return () => {
         socket.current.off("msg-recieve", messageListener);
       };
